@@ -1,7 +1,8 @@
-FROM nginx:mainline-alpine
+FROM golang:alpine
+RUN mkdir /app
+ADD . /app/
+WORKDIR /app
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o whalesay .
+ENTRYPOINT ["/app/whalesay"]
 
-RUN apk add --no-cache php5-fpm
-
-COPY default.conf /etc/nginx/conf.d/default.conf
-
-COPY html /usr/share/nginx/html
+EXPOSE 80
