@@ -1,14 +1,14 @@
-FROM golang:alpine
+FROM golang:alpine as build
 
-ADD . /root/
-WORKDIR /root
+WORKDIR /whalesay
+ADD . .
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o whalesay .
 
-FROM alpine:latest
+FROM gcr.io/distroless/base
 LABEL maintainer "Niko Virtala <niko@nikovirtala.io>"
 
-WORKDIR /root/
-COPY --from=0 /root/whalesay .
+WORKDIR /
+COPY --from=0 /whalesay .
 EXPOSE 80
-ENTRYPOINT ["/root/whalesay"]
+ENTRYPOINT ["/whalesay"]
 
