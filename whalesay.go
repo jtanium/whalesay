@@ -2,6 +2,7 @@ package main
 
 import (
   "fmt"
+  "log"
   "net/http"
   "os"
 )
@@ -36,10 +37,15 @@ This request was processed by: %s
 </body>
 </html>
 `, name)
+log.Print("Served request ",r,"\n")
 }
 
 func main() {
-  fmt.Fprintf(os.Stdout, "Server started. Listening on port tcp/80.\n")
+  log.SetOutput(os.Stderr)
+  log.Println("Starting server...")
   http.HandleFunc("/", handler)
-  http.ListenAndServe(":80", nil)
+  err := http.ListenAndServe(":80",nil)
+	if err != nil {
+		log.Fatal("ListenAndServer: ", err)
+	}
 }
