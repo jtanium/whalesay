@@ -1,0 +1,22 @@
+version: '3.3'
+
+services:
+  whalesay:
+    image: nikovirtala/whalesay:${TAG:-latest}
+    networks:
+      - ucp-hrm
+    deploy:
+      mode: global
+      endpoint_mode: vip
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+      labels:
+        com.docker.ucp.mesh.http.1: 'external_route=http://whale1.example.com,internal_port=80'
+        com.docker.ucp.mesh.http.2: 'external_route=http://whale2.example.com,internal_port=80'
+
+networks:
+  ucp-hrm:
+    external: true
