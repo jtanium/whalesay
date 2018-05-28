@@ -7,8 +7,11 @@ RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o whalesay .
 FROM alpine:edge
 LABEL maintainer "Niko Virtala <niko@nikovirtala.io>"
 
-WORKDIR /
+RUN adduser -D -g '' -h /home/nikovirtala nikovirtala
+USER nikovirtala
+WORKDIR /home/nikovirtala
+
 COPY --from=build /whalesay .
-EXPOSE 80
-ENTRYPOINT ["/whalesay"]
+EXPOSE 8080
+ENTRYPOINT ["./whalesay"]
 

@@ -1,20 +1,20 @@
-version: '3.3'
+version: '3.6'
 
 services:
   whalesay:
-    image: nikovirtala/whalesay:${TAG:-latest}
+    image: nikovirtala/whalesay:latest
     ports:
-      - 80:80
+      - 8080:8080
     networks:
       - whalesay
     deploy:
-      mode: global
+      mode: replicated
       endpoint_mode: vip
       update_config:
         parallelism: 1
         delay: 10s
       restart_policy:
-        condition: on-failure
+        condition: always
 
 networks:
   whalesay:

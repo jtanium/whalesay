@@ -44,7 +44,7 @@ func main() {
   log.SetOutput(os.Stderr)
   log.Println("Starting server ...")
   http.HandleFunc("/", handler)
-  err := http.ListenAndServe(":80",nil)
+  err := http.ListenAndServe(":8080",nil)
   if err != nil {
     log.Fatal("ListenAndServer: ", err)
   }
