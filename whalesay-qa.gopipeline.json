@@ -1,6 +1,6 @@
 {
   "group": "whalesay",
-  "name": "whalesay-qa",
+  "name": "whalesay_pac-qa",
   "display_order_weight": -1.0,
   "label_template": "${COUNT}",
   "lock_behavior": "none",
