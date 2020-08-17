@@ -1,0 +1,13 @@
+resources:
+- name: whalesay
+  type: git
+  source:
+    uri: https://github.com/jtanium/whalesay
+    branch: concourseci
+jobs:
+- name: run-tests
+  plan:
+  - get: whalesay
+    trigger: true
+  - task: run the test suite
+    file: whalesay/ci/tasks/run_tests.yml
